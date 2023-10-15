@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductRepo {
     private List<Product> products;
@@ -14,13 +15,12 @@ public class ProductRepo {
     }
 
     public Product getProductById(String id) {
+        //Optional<Product> product = Optional.ofNullable(product);
         for (Product product : products) {
             if (product.id().equals(id)) {
                 return product;
             }
         }
-
-
         return null;
     }
 
