@@ -1,5 +1,7 @@
 import lombok.With;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +24,7 @@ public class ShopService {
             productToOrder.ifPresent(products::add);
         }
 
-        Order newOrder = new Order(UUID.randomUUID().toString(), products, OrderStatus.PROCESSING);
+        Order newOrder = new Order(UUID.randomUUID().toString(), products, LocalDateTime.now(ZoneId.of("UTC")), OrderStatus.PROCESSING);
 
         return orderRepo.addOrder(newOrder);
     }
