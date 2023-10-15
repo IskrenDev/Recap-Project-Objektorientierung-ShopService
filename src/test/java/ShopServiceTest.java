@@ -22,15 +22,13 @@ class ShopServiceTest {
     }
 
     @Test
-    void addOrderTest_whenInvalidProductId_expectNull() {
-        //GIVEN
+    void addOrderTest_whenInvalidProductId_throwProductNotFoundException() {
+        // GIVEN
         ShopService shopService = new ShopService();
-        List<String> productsIds = List.of("1", "2");
+        List<String> productIds = List.of("1", "2");
 
-        //WHEN
-        Order actual = shopService.addOrder(productsIds);
-
-        //THEN
-        assertNull(actual);
+        //WHEN + THEN
+        IllegalArgumentException actual = assertThrows(IllegalArgumentException.class,
+                () -> shopService.addOrder(productIds));
     }
 }

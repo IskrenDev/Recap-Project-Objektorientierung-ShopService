@@ -13,9 +13,9 @@ public class ShopService {
         List<Product> products = new ArrayList<>();
         for (String productId : productIds) {
             Optional<Product> productToOrder = productRepo.getProductById(productId);
-            if (!productToOrder.isPresent()) {
-                System.out.println("Product mit der Id: " + productId + " konnte nicht bestellt werden!");
-                return null;
+            if (productToOrder.isEmpty()) {
+                String errorMessage = "Product mit der Id: " + productId + " konnte nicht bestellt werden!";
+                throw new IllegalArgumentException(errorMessage);
             }
             productToOrder.ifPresent(products::add);
         }
@@ -23,7 +23,7 @@ public class ShopService {
         Order newOrder = new Order(UUID.randomUUID().toString(), products, OrderStatus.PROCESSING);
 
         return orderRepo.addOrder(newOrder);
-    }
+}
 
     public List<Order> getOrdersByStatus(OrderStatus status) {
         return orderRepo.getOrders()
