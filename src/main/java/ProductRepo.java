@@ -14,14 +14,13 @@ public class ProductRepo {
         return products;
     }
 
-    public Product getProductById(String id) {
-        //Optional<Product> product = Optional.ofNullable(product);
+    public Optional<Product> getProductById(String id) {
         for (Product product : products) {
             if (product.id().equals(id)) {
-                return product;
+                return Optional.of(product);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     public Product addProduct(Product newProduct) {
