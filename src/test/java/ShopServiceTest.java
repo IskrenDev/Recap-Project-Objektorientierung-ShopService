@@ -10,7 +10,9 @@ class ShopServiceTest {
     @Test
     void addOrderTest() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ProductRepo productRepo = new ProductRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
+        ShopService shopService = new ShopService(productRepo, orderRepo);
         List<String> productsIds = List.of("1");
 
         //WHEN
@@ -25,7 +27,9 @@ class ShopServiceTest {
     @Test
     void addOrderTest_whenInvalidProductId_throwProductNotFoundException() {
         // GIVEN
-        ShopService shopService = new ShopService();
+        ProductRepo productRepo = new ProductRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
+        ShopService shopService = new ShopService(productRepo, orderRepo);
         List<String> productIds = List.of("1", "2");
 
         //WHEN + THEN
