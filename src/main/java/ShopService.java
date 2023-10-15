@@ -1,3 +1,5 @@
+import lombok.With;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,12 +25,24 @@ public class ShopService {
         Order newOrder = new Order(UUID.randomUUID().toString(), products, OrderStatus.PROCESSING);
 
         return orderRepo.addOrder(newOrder);
-}
+    }
 
     public List<Order> getOrdersByStatus(OrderStatus status) {
         return orderRepo.getOrders()
                 .stream()
                 .filter(order -> order.status().equals(status))
                 .collect(Collectors.toList());
+    }
+
+
+    public Order updateOrder(String id, OrderStatus status) {
+        Order order = orderRepo.getOrderById(id);
+        if (order != null) {
+            Order updatedOrder = order.withStatus(status);
+            orderRepo.updateOrder(updatedOrder);
+        } else {
+            System.out.println("Bestellung nicht gefunden: " + id);
+        }
+        return order;
     }
 }

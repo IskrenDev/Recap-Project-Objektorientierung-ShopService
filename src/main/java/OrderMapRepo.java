@@ -23,6 +23,11 @@ public class OrderMapRepo implements OrderRepo{
     }
 
     @Override
+    public Order updateOrder(Order order) {
+        return order;
+    }
+
+    @Override
     public void removeOrder(String id) {
         orders.remove(id);
     }
